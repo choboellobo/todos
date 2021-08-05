@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -13,9 +14,10 @@ import { AppService } from './app.service';
     MongooseModule.forRoot(
       process.env.ENV === 'production' ? process.env.MONGODB_URI : process.env.MONGODB_URI_DEV,
       {
-        
+        useCreateIndex: true
       } 
-    )
+    ),
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],
