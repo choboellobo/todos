@@ -31,8 +31,8 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('me')
   getMeInformation(@Req() req: Request) {
-    const { userId } = req.user as any
-    return this.userService.findOne(userId)
+    const { id } = req.user as any
+    return this.userService.findOne(id)
   }
 
   @Post('refresh')
