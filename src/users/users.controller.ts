@@ -3,10 +3,10 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import { Roles } from 'src/common/decorators/roles.decorator';
-import { RoleGuard } from 'src/common/guards/role.guard';
-import { OnlyMeGuard } from 'src/common/guards/only-me.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { Roles } from '../common/decorators/roles.decorator';
+import { RoleGuard } from '../common/guards/role.guard';
+import { OnlyMeGuard } from '../common/guards/only-me.guard';
 
 @ApiTags('Users')
 @ApiBearerAuth()
