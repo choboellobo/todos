@@ -11,7 +11,7 @@ import { AuthModule } from './auth/auth.module';
       envFilePath: ['.env']
     }),
     MongooseModule.forRoot(
-      process.env.ENV === 'production' ? process.env.MONGODB_URI : process.env.MONGODB_URI_DEV,
+      process.env.ENV === 'testing' ? process.env.MONGODB_URI_TESTING : process.env.MONGODB_URI,
       {
         useCreateIndex: true
       } 
