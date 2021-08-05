@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { IUser } from './user.interface';
 import { User } from './user.schema';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -31,5 +32,12 @@ export class UsersService {
   async remove(id: string) {
     await this.model.findByIdAndRemove(id).exec();
     return { status: HttpStatus.NO_CONTENT}
+  }
+
+  getUserByEmail(email: string): Promise<IUser> {
+    return this.model.findOne({email}, '+password').exec()
+  }
+  async validatePassword(password: string, password_hash: string): Promise<boolean> {
+    return await bcrypt.compare(password, password_hash);
   }
 }
