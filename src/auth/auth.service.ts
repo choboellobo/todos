@@ -24,6 +24,16 @@ export class AuthService {
         return {
             name: user.name,
             access_token: this.jwtService.sign(payload),
+            refresh_token: this.jwtService.sign({...payload, refresh: true})
         };
+    }
+
+    async generateTokenFromRefresh(refresh_token: string) {
+        const data = this.jwtService.decode(refresh_token) as any
+        if(data.refresh) {
+            const user: IUser = await this.userService.findOne(data.sub)
+            return this.generateToken(user)
+        }
+        throw new UnauthorizedException()
     }
 }
