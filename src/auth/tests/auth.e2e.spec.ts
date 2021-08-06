@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../../app.module';
-import { DatabaseService } from 'src/common/testing/database.service';
+import { DatabaseService } from '../../common/testing/database.service';
 import { Connection } from 'mongoose';
 import { UserMock } from './user.mock';
 
@@ -21,9 +21,18 @@ describe('AppController (e2e)', () => {
     dbConnection = moduleFixture.get<DatabaseService>(DatabaseService).getDbHandler()
   });
 
+  afterEach( async () => {
+    dbConnection.collection('users').deleteMany({})
+  })
+
+  afterAll( async () => {
+    app.close()
+  })
+
   it('/auth/signup (POST)',async () => {
-      const response = await request(app.getHttpServer()).post('/signup').send(UserMock)
+      const response = await request(app.getHttpServer()).post('/auth/signup').send(UserMock)
       expect(response.status).toBe(201)
-      expect(response.body).toMatchObject(UserMock)
-  });
+      expect(response.body).toMatchObject({email: UserMock.email, name: UserMock.name})
+      expect(response.body).not.toMatchObject({password: UserMock.password})
+  })
 });
