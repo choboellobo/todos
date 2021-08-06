@@ -7,7 +7,7 @@ import { UsersService } from '../users/users.service';
 import { JwtAuthGuard } from './guards/jwt.guard';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { RefreshTokenDto } from './dto/refresh_token.dto';
-import { ResponseDescription } from 'src/common/enum/response.swagger';
+import { ResponseDescription } from '../common/enum/response.swagger';
 
 @ApiTags('Auth')
 @Controller('auth')

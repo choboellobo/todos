@@ -7,7 +7,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { RoleGuard } from '../common/guards/role.guard';
 import { OnlyMeGuard } from '../common/guards/only-me.guard';
-import { ResponseDescription } from 'src/common/enum/response.swagger';
+import { ResponseDescription } from '../common/enum/response.swagger';
 
 @ApiTags('Users')
 @ApiBearerAuth()
