@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, ForbiddenException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -8,6 +8,9 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { RoleGuard } from '../common/guards/role.guard';
 import { OnlyMeGuard } from '../common/guards/only-me.guard';
 import { ResponseDescription } from '../common/enum/response.swagger';
+import { User } from './user.schema';
+import { IUser } from './user.interface';
+
 
 @ApiTags('Users')
 @ApiBearerAuth()
@@ -19,7 +22,7 @@ export class UsersController {
   @Roles('admin')
   @UseGuards(RoleGuard)
   @Post()
-  @ApiCreatedResponse({description: ResponseDescription.CREATED})
+  @ApiCreatedResponse({description: ResponseDescription.CREATED, type: User  })
   @ApiUnauthorizedResponse({description: ResponseDescription.UNAUTHORIZED})
   @ApiBadRequestResponse({description: ResponseDescription.BAD})
   @ApiForbiddenResponse({description: ResponseDescription.FORBIDDEN})
@@ -30,12 +33,12 @@ export class UsersController {
   @Roles('admin')
   @UseGuards(RoleGuard)
   @Get()
-  @ApiCreatedResponse({description: ResponseDescription.CREATED})
+  @ApiCreatedResponse({description: ResponseDescription.CREATED, type: User, isArray: true})
   @ApiUnauthorizedResponse({description: ResponseDescription.UNAUTHORIZED})
   @ApiBadRequestResponse({description: ResponseDescription.BAD})
   @ApiForbiddenResponse({description: ResponseDescription.FORBIDDEN})
-  findAll() {
-    return this.usersService.findAll()
+  findAll(@Query() query: IUser) {
+    return this.usersService.findAll(query)
   }
 
   @Roles('admin','user')

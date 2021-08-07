@@ -17,8 +17,8 @@ export class UsersService {
     return newUser.save()
   }
 
-  findAll() :Promise<IUser[]> {
-    return this.model.find().exec()
+  findAll(query: Object) :Promise<IUser[]> {
+    return this.model.find(query).exec()
   }
 
   findOne(id: string): Promise<IUser> {
