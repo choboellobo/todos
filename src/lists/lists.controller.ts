@@ -3,9 +3,9 @@ import { ListsService } from './lists.service';
 import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { Request } from 'express'
-import { ResponseDescription } from 'src/common/enum/response.swagger';
+import { ResponseDescription } from '../common/enum/response.swagger';
 
 @ApiTags('Lists')
 @ApiBearerAuth()
